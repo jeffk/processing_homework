@@ -1,4 +1,14 @@
 // attackle of the grackles
+// Sounds from freesound.org
+// https://freesound.org/people/yottasounds/sounds/232135/
+// https://freesound.org/people/steffcaffrey/sounds/262308/
+// https://freesound.org/people/LOVEBURD/sounds/329612/
+
+// Music is sampled from La Bodeguita de Medio by Laszlo Harsanyi
+// http://freemusicarchive.org/music/Harsanyi_Laszlo/Havana_Heat/1_-_La_Bodeguita_del_Medio
+
+import processing.sound.*;
+
 int frame = 0;
 int numgrackles = 10;
 int splats_tracked = 200;
@@ -13,9 +23,14 @@ PImage g1;
 PImage g2;
 Splats splats = new Splats(splats_tracked);
 Tacos tacos = new Tacos(splats_tracked);
+SoundFile splat_sound;
+SoundFile happy_sound;
+SoundFile honk_sound;
+SoundFile music_sound;
 int starttime = 0;
 int endtime = 0;
 boolean show_splash = true;
+boolean played_horn = false;
 boolean crazy_grackles = false;
 
 TacoTruck truck = new TacoTruck(640/2, 480/2);
@@ -25,7 +40,11 @@ void setup() {
   background(255);
   frameRate(30);
   splat_image = loadImage("splat-small.png");
+  splat_sound = new SoundFile(this, "splat.wav");
   taco_image = loadImage("taco-small.png");
+  happy_sound = new SoundFile(this, "happy.wav");
+  honk_sound = new SoundFile(this, "honk.wav");
+  music_sound = new SoundFile(this, "La_Bodeguita_del_Medio.mp3");
   taco_truck_image = loadImage("tacotruck-small.png");
   g1 = loadImage("grackle1.png");
   g2 = loadImage("grackle2.png");
@@ -45,6 +64,7 @@ void do_clean() {
   starttime = millis();
   endtime = millis()+(1000*30);
   truck.posx = width;
+  music_sound.play();
 }
 
 void draw() {
@@ -56,6 +76,10 @@ void draw() {
     text("ATTACKLE of the GRACKLES", width/2, height/20*8);
     text("Use mouse to lead", width/2, height/20*10);
     text("Click to start!", width/2, height/20*12);
+    if (!played_horn) {
+        honk_sound.play();
+        played_horn = true;
+    }
     if (keyPressed && key == 's') {
       crazy_grackles = true;
       show_splash = false;
@@ -184,6 +208,7 @@ class Tacos {
           if (y-taco_list[i][1] < 10 && y-taco_list[i][1] > -10 && x-taco_list[i][0] < 15 && x-taco_list[i][0] > -15) {
             taco_list[i][0] = 0;
             taco_list[i][1] = 0;
+            happy_sound.play();
             eaten++;
           }
         }
@@ -268,6 +293,7 @@ class Grackle {
       splats.splat(posx, posy);
       posx = random(width);
       posy = random(height);
+      splat_sound.play();
       total_splats++;
       
       // This code moves grackles away from the trucks, if you don't want
