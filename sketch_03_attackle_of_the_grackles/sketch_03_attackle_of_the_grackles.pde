@@ -16,6 +16,7 @@ Tacos tacos = new Tacos(splats_tracked);
 int starttime = 0;
 int endtime = 0;
 boolean show_splash = true;
+boolean crazy_grackles = false;
 
 TacoTruck truck = new TacoTruck(640/2, 480/2);
 
@@ -55,7 +56,11 @@ void draw() {
     text("ATTACKLE of the GRACKLES", width/2, height/20*8);
     text("Use mouse to lead", width/2, height/20*10);
     text("Click to start!", width/2, height/20*12);
-    if (mousePressed == true) {
+    if (keyPressed && key == 's') {
+      crazy_grackles = true;
+      show_splash = false;
+      do_clean();
+    } else if (mousePressed == true) {
       show_splash = false;
       do_clean();
     }
@@ -91,6 +96,7 @@ void draw() {
       grackles[i].move(frame, truck);
     }
   } else {
+    crazy_grackles = false;
     fill(255);
     rectMode(CENTER);
     rect(width/2, height/2, width/10*8, height/10*3);
@@ -274,8 +280,11 @@ class Grackle {
       // Try this to attract them to the truck instead
       // of the mouse. ie: Players: 0
       // The only way for the grackles to win is not to play.
-      //theta = atan2(truck.posy-posy, truck.posx-posx);
-      theta = atan2(mouseY-posy, mouseX-posx);
+      if (crazy_grackles) {
+        theta = atan2(truck.posy-posy, truck.posx-posx);
+      } else {
+        theta = atan2(mouseY-posy, mouseX-posx);
+      }
       posx = posx+cos(theta)*speed;
       posy = posy+sin(theta)*speed;
 
