@@ -140,7 +140,10 @@ void draw() {
       end_text = "Oh no, poor grackles!";
     }
     text(end_text, width/2, height/2);
-    if (mousePressed == true) {
+    if (keyPressed && key == 's') {
+      crazy_grackles = true;
+      do_clean();
+    } else if (mousePressed == true) {
       do_clean();
     }
   }
