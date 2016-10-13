@@ -17,6 +17,8 @@ int tacos_eaten = 0;
 int taco_drop_chance = 5;
 Grackle[] grackles = new Grackle[numgrackles];
 PImage splat_image;
+PImage splash_image;
+PImage header_image;
 PImage taco_truck_image;
 PImage taco_image;
 PImage g1;
@@ -40,6 +42,8 @@ void setup() {
   background(255);
   frameRate(30);
   splat_image = loadImage("splat-small.png");
+  splash_image = loadImage("splash.png");
+  header_image = loadImage("header.png");
   splat_sound = new SoundFile(this, "splat.wav");
   taco_image = loadImage("taco-small.png");
   happy_sound = new SoundFile(this, "happy.wav");
@@ -70,12 +74,14 @@ void do_clean() {
 void draw() {
   background(255);
   textAlign(CENTER);
+  imageMode(CENTER);
   fill(255,0,0);
   if (show_splash) {
-    textSize(24);
-    text("ATTACKLE of the GRACKLES", width/2, height/20*8);
-    text("Use mouse to lead", width/2, height/20*10);
-    text("Click to start!", width/2, height/20*12);
+    //textSize(24);
+    //text("ATTACKLE of the GRACKLES", width/2, height/20*8);
+    //text("Use mouse to lead", width/2, height/20*10);
+    //text("Click to start!", width/2, height/20*12);
+    image(splash_image, width/2, height/2, 640, 480);
     if (!played_horn) {
         honk_sound.play();
         played_horn = true;
@@ -90,8 +96,10 @@ void draw() {
     }
     return;
   }
+  image(header_image, width/2, 25, 176, 16);
+
   textSize(16);
-  text("ATTACKLE of the GRACKLES", width/2, height/20*1);
+  //text("ATTACKLE of the GRACKLES", width/2, height/20*1);
   textAlign(RIGHT);
   text(str(tacos_eaten)+" TACOS\n"+ str(total_splats)+" DEATHS", width/100*105, height-35);
   textAlign(LEFT);
