@@ -151,6 +151,7 @@ function draw() {
     truck.move(frame);
     for (var i = 0; i < grackles.length; i++) {
       grackles[i].move(frame, truck);
+      mpressed = false;
     }
   } else {
     crazy_grackles = false;
