@@ -167,7 +167,7 @@ function draw_cat() {
   // because constantly moving the tail looks weird.
   arc(width/100*90, height/100*88, width/100*22, height/500*80+(twitch), HALF_PI, PI);
   strokeWeight(0);
-  if ((frame % 5 == 0) && (frame > 50)) {
+  if ((frame % 3 == 0) && (frame > 50)) {
     twitch = twitch + step;
     if (twitch > 20 || twitch < 1) {
       step = step * -1;
