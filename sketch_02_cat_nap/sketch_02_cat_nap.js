@@ -93,7 +93,7 @@ function draw_rug() {
 }
 
 function draw_motes() {
-  strokeWeight(1);
+  strokeWeight(2);
   // We work our way through our motes array...
   for (var i = 0; i < 100; i++) {
     // If the mote's alpha color is > 0 it must be a valid mote.
@@ -159,7 +159,7 @@ function draw_cat() {
   ellipse(width/100*62, height/100*86, width/100*9, height/100*6);
   triangle(width/100*58, height/100*86, width/100*61, height/100*84, width/100*57, height/100*82);
   triangle(width/100*60, height/100*84, width/100*64, height/100*84, width/50*31, height/100*81);
-  strokeWeight(8);
+  strokeWeight(12);
   stroke("#2C2C2B");
   noFill();
   // We move the tail based on the twitch number, which we bounce up
@@ -169,7 +169,7 @@ function draw_cat() {
   strokeWeight(0);
   if ((frame % 5 == 0) && (frame > 50)) {
     twitch = twitch + step;
-    if (twitch > 10 || twitch < 1) {
+    if (twitch > 20 || twitch < 1) {
       step = step * -1;
     };
   };
